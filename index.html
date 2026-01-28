@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Validator - Trimbox, Color Mode & Resolution</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Lucide Icons as inline SVG components
+        const Upload = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+        );
+
+        const CheckCircle = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        );
+
+        const XCircle = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+        );
+
+        const AlertCircle = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        );
+
+        const FileText = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        );
+
+        const Search = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        );
+
+        // Load recursos database from external file
+        const RECURSOS_DB_URL = './recursos_db.json';
+
+        const FileValidatorApp = () => {
+            const [recursoCode, setRecursoCode] = useState('');
+            const [selectedFile, setSelectedFile] = useState(null);
+            const [validating, setValidating] = useState(false);
+            const [results, setResults] = useState(null);
+            const [searchResults, setSearchResults] = useState([]);
+            const [showSearch, setShowSearch] = useState(false);
+            const [recursosDB, setRecursosDB] = useState({});
+            const [loading, setLoading] = useState(true);
+
+            // Load recursos database on mount
+            React.useEffect(() => {
+                fetch(RECURSOS_DB_URL)
+                    .then(response => response.json())
+                    .then(data => {
+                        setRecursosDB(data);
+                        setLoading(false);
+                    })
+                    .catch(error => {
+                        console.error('Error loading recursos database:', error);
+                        setLoading(false);
+                        alert('Error loading recursos database. Please refresh the page.');
+                    });
+            }, []);
+
+            const handleFileChange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    setSelectedFile(file);
+                    setResults(null);
+                }
+            };
+
+            const handleRecursoSearch = (value) => {
+                setRecursoCode(value);
+                if (value.length >= 3) {
+                    const matches = Object.keys(recursosDB)
+                        .filter(code => code.toLowerCase().includes(value.toLowerCase()))
+                        .slice(0, 10);
+                    setSearchResults(matches);
+                    setShowSearch(matches.length > 0);
+                } else {
+                    setSearchResults([]);
+                    setShowSearch(false);
+                }
+            };
+
+            const selectRecurso = (code) => {
+                setRecursoCode(code);
+                setShowSearch(false);
+                setSearchResults([]);
+            };
+
+            const mmToPoints = (mm) => mm * 2.83465;
+            const pointsToMm = (points) => points / 2.83465;
+
+            const extractPDFInfo = async (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const arrayBuffer = e.target.result;
+                            const uint8Array = new Uint8Array(arrayBuffer);
+                            const text = new TextDecoder().decode(uint8Array);
+
+                            let trimBoxMatch = text.match(/\/TrimBox\s*\[([\d\s.]+)\]/);
+                            let mediaBoxMatch = text.match(/\/MediaBox\s*\[([\d\s.]+)\]/);
+
+                            let box = trimBoxMatch || mediaBoxMatch;
+                            let boxValues = box ? box[1].trim().split(/\s+/).map(Number) : [0, 0, 595, 842];
+
+                            const width = pointsToMm(boxValues[2] - boxValues[0]);
+                            const height = pointsToMm(boxValues[3] - boxValues[1]);
+
+                            const hasCMYK = text.includes('/DeviceCMYK') || text.includes('/CMYK');
+                            const hasRGB = text.includes('/DeviceRGB') || text.includes('/RGB');
+                            const colorMode = hasCMYK ? 'CMYK' : (hasRGB ? 'RGB' : 'Unknown');
+                            const resolution = hasCMYK ? 300 : 150;
+
+                            resolve({
+                                width: Math.round(width * 10) / 10,
+                                height: Math.round(height * 10) / 10,
+                                colorMode,
+                                resolution,
+                                unit: 'mm'
+                            });
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+                    reader.onerror = reject;
+                    reader.readAsArrayBuffer(file);
+                });
+            };
+
+            const extractImageInfo = async (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+
+                            const isLikelyCMYK = file.size > 1000000;
+                            let resolution = 150;
+                            if (file.name.includes('300') || file.name.includes('high')) {
+                                resolution = 300;
+                            }
+
+                            const widthMm = (img.width / resolution) * 25.4;
+                            const heightMm = (img.height / resolution) * 25.4;
+
+                            resolve({
+                                width: Math.round(widthMm * 10) / 10,
+                                height: Math.round(heightMm * 10) / 10,
+                                colorMode: isLikelyCMYK ? 'CMYK' : 'RGB',
+                                resolution: resolution,
+                                unit: 'mm',
+                                pixelWidth: img.width,
+                                pixelHeight: img.height
+                            });
+                        };
+                        img.onerror = reject;
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            };
+
+            const validateFile = async () => {
+                if (!recursoCode || !selectedFile) {
+                    alert('Please provide both a recurso code and a file');
+                    return;
+                }
+
+                const recurso = recursosDB[recursoCode.toUpperCase()];
+                if (!recurso) {
+                    alert('Recurso code not found in database. Please check the code and try again.');
+                    return;
+                }
+
+                setValidating(true);
+                setResults(null);
+
+                try {
+                    let fileInfo;
+                    const fileType = selectedFile.type;
+                    const fileName = selectedFile.name.toLowerCase();
+
+                    if (fileType === 'application/pdf' || fileName.endsWith('.pdf')) {
+                        fileInfo = await extractPDFInfo(selectedFile);
+                    } else if (fileType.startsWith('image/') || fileName.match(/\.(jpg|jpeg|tiff|tif)$/)) {
+                        fileInfo = await extractImageInfo(selectedFile);
+                    } else {
+                        throw new Error('Unsupported file type. Please upload PDF, JPG, or TIFF files.');
+                    }
+
+                    const tolerance = 2;
+                    const dimensionMatch =
+                        Math.abs(fileInfo.width - recurso.width) <= tolerance &&
+                        Math.abs(fileInfo.height - recurso.height) <= tolerance;
+
+                    const colorModeValid = fileInfo.colorMode === 'CMYK';
+                    const resolutionValid = fileInfo.resolution >= 100;
+
+                    setResults({
+                        recurso,
+                        fileInfo,
+                        validations: {
+                            dimensions: {
+                                valid: dimensionMatch,
+                                expected: `${recurso.width} x ${recurso.height} ${recurso.unit}`,
+                                actual: `${fileInfo.width} x ${fileInfo.height} ${fileInfo.unit}`,
+                                message: dimensionMatch
+                                    ? 'Dimensions match expected values'
+                                    : `Dimensions don't match (tolerance: ±${tolerance}mm)`
+                            },
+                            colorMode: {
+                                valid: colorModeValid,
+                                expected: 'CMYK',
+                                actual: fileInfo.colorMode,
+                                message: colorModeValid
+                                    ? 'Color mode is correct'
+                                    : 'File must be in CMYK color mode'
+                            },
+                            resolution: {
+                                valid: resolutionValid,
+                                expected: '≥ 100 PPP',
+                                actual: `${fileInfo.resolution} PPP`,
+                                message: resolutionValid
+                                    ? 'Resolution meets minimum requirement'
+                                    : 'Resolution must be at least 100 PPP'
+                            }
+                        },
+                        overallValid: dimensionMatch && colorModeValid && resolutionValid
+                    });
+                } catch (error) {
+                    alert(`Error processing file: ${error.message}`);
+                } finally {
+                    setValidating(false);
+                }
+            };
+
+            const ValidationItem = ({ label, validation }) => (
+                <div className="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+                    <div className="flex-shrink-0 mt-1">
+                        {validation.valid ? (
+                            <CheckCircle className="w-6 h-6 text-green-500" />
+                        ) : (
+                            <XCircle className="w-6 h-6 text-red-500" />
+                        )}
+                    </div>
+                    <div className="flex-1">
+                        <h4 className="font-semibold text-gray-900 mb-1">{label}</h4>
+                        <div className="text-sm text-gray-600 space-y-1">
+                            <p><span className="font-medium">Expected:</span> {validation.expected}</p>
+                            <p><span className="font-medium">Actual:</span> {validation.actual}</p>
+                            <p className={validation.valid ? 'text-green-600' : 'text-red-600'}>
+                                {validation.message}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const totalRecursos = Object.keys(recursosDB).length;
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p className="text-gray-700 font-medium">Loading recursos database...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <FileText className="w-10 h-10" />
+                                        <div>
+                                            <h1 className="text-3xl font-bold">File Validator</h1>
+                                            <p className="text-blue-100 mt-1">Validate trimbox, color mode & resolution</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-2xl font-bold">{totalRecursos.toLocaleString()}</div>
+                                        <div className="text-sm text-blue-100">Recursos loaded</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-8 space-y-6">
+                                <div className="relative">
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Recurso Code
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            value={recursoCode}
+                                            onChange={(e) => handleRecursoSearch(e.target.value)}
+                                            onFocus={() => recursoCode.length >= 3 && searchResults.length > 0 && setShowSearch(true)}
+                                            placeholder="e.g., R17-006705"
+                                            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                        />
+                                        <Search className="absolute right-3 top-3.5 w-5 h-5 text-gray-400" />
+                                    </div>
+
+                                    {showSearch && searchResults.length > 0 && (
+                                        <div className="absolute z-10 w-full mt-1 bg-white border-2 border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                            {searchResults.map((code) => (
+                                                <button
+                                                    key={code}
+                                                    onClick={() => selectRecurso(code)}
+                                                    className="w-full px-4 py-3 text-left hover:bg-blue-50 border-b border-gray-100 last:border-b-0 transition-colors"
+                                                >
+                                                    <div className="font-medium text-gray-900">{code}</div>
+                                                    <div className="text-sm text-gray-500">
+                                                        {recursosDB[code].name} - {recursosDB[code].width} x {recursosDB[code].height} mm
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    <p className="mt-2 text-xs text-gray-500">
+                                        {totalRecursos.toLocaleString()} recursos available. Type to search...
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Upload File
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="file"
+                                            onChange={handleFileChange}
+                                            accept=".pdf,.jpg,.jpeg,.tiff,.tif"
+                                            className="hidden"
+                                            id="file-upload"
+                                        />
+                                        <label
+                                            htmlFor="file-upload"
+                                            className="flex items-center justify-center w-full px-4 py-8 border-3 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all"
+                                        >
+                                            <div className="text-center">
+                                                <Upload className="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                                <p className="text-sm font-medium text-gray-700">
+                                                    {selectedFile ? selectedFile.name : 'Click to upload or drag and drop'}
+                                                </p>
+                                                <p className="text-xs text-gray-500 mt-1">
+                                                    PDF, JPG, or TIFF files
+                                                </p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={validateFile}
+                                    disabled={!recursoCode || !selectedFile || validating}
+                                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                                >
+                                    {validating ? 'Validating...' : 'Validate File'}
+                                </button>
+                            </div>
+
+                            {results && (
+                                <div className="p-8 bg-gray-50 border-t-2 border-gray-200">
+                                    <div className={`p-6 rounded-xl mb-6 ${
+                                        results.overallValid
+                                            ? 'bg-green-100 border-2 border-green-300'
+                                            : 'bg-red-100 border-2 border-red-300'
+                                    }`}>
+                                        <div className="flex items-center space-x-3">
+                                            {results.overallValid ? (
+                                                <CheckCircle className="w-8 h-8 text-green-600" />
+                                            ) : (
+                                                <AlertCircle className="w-8 h-8 text-red-600" />
+                                            )}
+                                            <div>
+                                                <h3 className="text-xl font-bold text-gray-900">
+                                                    {results.overallValid ? 'File is Valid!' : 'Validation Failed'}
+                                                </h3>
+                                                <p className="text-sm text-gray-700 mt-1">
+                                                    Recurso: {results.recurso.name} ({recursoCode})
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <h3 className="text-lg font-bold text-gray-900 mb-4">Validation Details</h3>
+                                        <ValidationItem label="Trimbox Dimensions" validation={results.validations.dimensions} />
+                                        <ValidationItem label="Color Mode" validation={results.validations.colorMode} />
+                                        <ValidationItem label="Resolution" validation={results.validations.resolution} />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                            <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+                                <AlertCircle className="w-5 h-5 mr-2" />
+                                Demo Information
+                            </h3>
+                            <div className="text-sm text-blue-800 space-y-2">
+                                <p><strong>Database:</strong> {totalRecursos.toLocaleString()} recursos loaded from InventarioPapel_.csv</p>
+                                <p><strong>Note:</strong> This is a prototype with simulated file parsing for CMYK and resolution detection.</p>
+                                <p><strong>Validation Rules:</strong></p>
+                                <ul className="list-disc list-inside ml-4 space-y-1">
+                                    <li>Trimbox must match recurso dimensions (±2mm tolerance)</li>
+                                    <li>Color mode must be CMYK</li>
+                                    <li>Resolution must be ≥ 100 PPP</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<FileValidatorApp />);
+    </script>
+</body>
+</html>
