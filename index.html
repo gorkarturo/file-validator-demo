@@ -237,9 +237,25 @@
                     }
 
                     const tolerance = 2;
-                    const dimensionMatch =
-                        Math.abs(fileInfo.width - recurso.width) <= tolerance &&
-                        Math.abs(fileInfo.height - recurso.height) <= tolerance;
+
+                    // Check for scale from 1:1 to 1:10
+                    let dimensionMatch = false;
+                    let detectedScale = null;
+                    let scaleRatio = 1;
+
+                    // Check each scale from 1:1 to 1:10
+                    for (let scale = 1; scale <= 10; scale++) {
+                        const scaledWidth = recurso.width / scale;
+                        const scaledHeight = recurso.height / scale;
+
+                        if (Math.abs(fileInfo.width - scaledWidth) <= tolerance &&
+                            Math.abs(fileInfo.height - scaledHeight) <= tolerance) {
+                            dimensionMatch = true;
+                            detectedScale = scale === 1 ? 'Full scale (1:1)' : `1:${scale} scale`;
+                            scaleRatio = scale;
+                            break;
+                        }
+                    }
 
                     const colorModeValid = fileInfo.colorMode === 'CMYK';
                     const resolutionValid = fileInfo.resolution >= 100;
@@ -247,14 +263,17 @@
                     setResults({
                         recurso,
                         fileInfo,
+                        scale: detectedScale,
+                        scaleRatio: scaleRatio,
                         validations: {
                             dimensions: {
                                 valid: dimensionMatch,
                                 expected: `${recurso.width} x ${recurso.height} ${recurso.unit}`,
                                 actual: `${fileInfo.width} x ${fileInfo.height} ${fileInfo.unit}`,
+                                scale: detectedScale,
                                 message: dimensionMatch
-                                    ? 'Dimensions match expected values'
-                                    : `Dimensions don't match (tolerance: ±${tolerance}mm)`
+                                    ? `Dimensions match expected values${detectedScale !== 'Full scale (1:1)' ? ` at ${detectedScale}` : ''}`
+                                    : `Dimensions don't match (checked scales 1:1 to 1:10, tolerance: ±${tolerance}mm)`
                             },
                             colorMode: {
                                 valid: colorModeValid,
@@ -434,6 +453,11 @@
                                                 <p className="text-sm text-gray-700 mt-1">
                                                     Recurso: {results.recurso.name} ({recursoCode})
                                                 </p>
+                                                {results.scale && results.validations.dimensions.valid && (
+                                                    <p className="text-sm text-blue-700 mt-1 font-medium">
+                                                        Detected: {results.scale}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -459,6 +483,7 @@
                                 <p><strong>Validation Rules:</strong></p>
                                 <ul className="list-disc list-inside ml-4 space-y-1">
                                     <li>Trimbox must match recurso dimensions (±2mm tolerance)</li>
+                                    <li>Files can be at scale from 1:1 (full scale) to 1:10</li>
                                     <li>Color mode must be CMYK</li>
                                     <li>Resolution must be ≥ 100 PPP</li>
                                 </ul>
