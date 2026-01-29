@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Validator - Trimbox, Color Mode & Resolution</title>
+    <title>File Validator - Digital & Print</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -14,15 +14,20 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
         }
+        .primary-color { color: #e6007e; }
+        .primary-bg { background-color: #e6007e; }
+        .primary-hover:hover { background-color: #c0006b; }
+        .primary-gradient { background: linear-gradient(135deg, #e6007e 0%, #cc006f 100%); }
+        .primary-light-bg { background-color: #fce6f2; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
 
-        // Lucide Icons as inline SVG components
+        // SVG Icons
         const Upload = ({ className }) => (
             <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -54,50 +59,449 @@
             </svg>
         );
 
-        const FileText = ({ className }) => (
+        const AlertTriangle = ({ className }) => (
             <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3.05h16.94a2 2 0 0 0 1.71-3.05L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
         );
 
-        const Search = ({ className }) => (
+        const ArrowLeft = ({ className }) => (
             <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
         );
 
-        // Load recursos database from external file
-        const RECURSOS_DB_URL = './recursos_db.json';
+        const Film = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                <line x1="16" y1="5" x2="16" y2="11"></line>
+                <line x1="8" y1="5" x2="8" y2="11"></line>
+            </svg>
+        );
 
-        const FileValidatorApp = () => {
+        const Printer = ({ className }) => (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <rect x="2" y="9" width="20" height="8"></rect>
+                <line x1="6" y1="17" x2="6" y2="21"></line>
+                <line x1="18" y1="17" x2="18" y2="21"></line>
+            </svg>
+        );
+
+        const FileValidator = () => {
+            const [currentView, setCurrentView] = useState('landing');
+            const [soportesDB, setSoportesDB] = useState([]);
+            const [recursosDB, setRecursosDB] = useState({});
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                Promise.all([
+                    fetch('./soportes_digitales_db.json').then(r => r.json()),
+                    fetch('./recursos_db.json').then(r => r.json())
+                ])
+                    .then(([digitales, recursos]) => {
+                        setSoportesDB(digitales);
+                        setRecursosDB(recursos);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.error('Error loading databases:', err);
+                        setLoading(false);
+                    });
+            }, []);
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 flex items-center justify-center">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 primary-color mx-auto mb-4"></div>
+                            <p className="text-gray-700 font-medium">Loading databases...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (currentView === 'landing') {
+                return <LandingPage setCurrentView={setCurrentView} />;
+            }
+
+            if (currentView === 'digital') {
+                return <DigitalValidator soportesDB={soportesDB} setCurrentView={setCurrentView} />;
+            }
+
+            if (currentView === 'print') {
+                return <PrintValidator recursosDB={recursosDB} setCurrentView={setCurrentView} />;
+            }
+        };
+
+        const LandingPage = ({ setCurrentView }) => (
+            <div className="min-h-screen primary-gradient flex items-center justify-center p-4">
+                <div className="max-w-4xl w-full">
+                    <div className="text-center mb-16">
+                        <h1 className="text-5xl font-bold text-white mb-4">File Validator</h1>
+                        <p className="text-xl text-pink-100">Validate your digital and print files</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Digital Button */}
+                        <button
+                            onClick={() => setCurrentView('digital')}
+                            className="bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-all transform hover:scale-105 active:scale-95"
+                        >
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-pink-100 p-6 rounded-full">
+                                    <Film className="w-16 h-16 primary-color" />
+                                </div>
+                            </div>
+                            <h2 className="text-3xl font-bold primary-color mb-3">Digital</h2>
+                            <p className="text-gray-600 text-lg">Validate video and image files for digital displays</p>
+                            <div className="mt-6 text-sm text-gray-500">
+                                <p>MP4, MOV, JPG</p>
+                                <p>Dimensions, FPS, Duration</p>
+                            </div>
+                        </button>
+
+                        {/* Print Button */}
+                        <button
+                            onClick={() => setCurrentView('print')}
+                            className="bg-white rounded-2xl shadow-2xl p-8 hover:shadow-3xl transition-all transform hover:scale-105 active:scale-95"
+                        >
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-pink-100 p-6 rounded-full">
+                                    <Printer className="w-16 h-16 primary-color" />
+                                </div>
+                            </div>
+                            <h2 className="text-3xl font-bold primary-color mb-3">Impresión</h2>
+                            <p className="text-gray-600 text-lg">Validate print files for specifications</p>
+                            <div className="mt-6 text-sm text-gray-500">
+                                <p>PDF, JPG, TIFF</p>
+                                <p>Trimbox, Color, Resolution</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const DigitalValidator = ({ soportesDB, setCurrentView }) => {
+            const [files, setFiles] = useState([]);
+            const [validating, setValidating] = useState(false);
+            const [results, setResults] = useState([]);
+
+            const handleFileChange = (e) => {
+                const newFiles = Array.from(e.target.files);
+                setFiles(prev => [...prev, ...newFiles]);
+            };
+
+            const removeFile = (index) => {
+                setFiles(prev => prev.filter((_, i) => i !== index));
+            };
+
+            const extractVideoMetadata = (file) => {
+                return new Promise((resolve, reject) => {
+                    const video = document.createElement('video');
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        video.src = e.target.result;
+                        video.onloadedmetadata = () => {
+                            const duration = video.duration;
+                            const width = video.videoWidth;
+                            const height = video.videoHeight;
+
+                            // FPS detection (simplified - using duration and frame count if available)
+                            let fps = 24; // default assumption
+                            try {
+                                if (video.getVideoPlaybackQuality) {
+                                    const quality = video.getVideoPlaybackQuality();
+                                    if (quality.creationTime && quality.totalFramesSinceCreation) {
+                                        fps = Math.round(quality.totalFramesSinceCreation / quality.creationTime * 1000);
+                                    }
+                                }
+                            } catch (err) {
+                                // Use default
+                            }
+
+                            resolve({ width, height, duration, fps });
+                        };
+                        video.onerror = () => reject(new Error('Failed to load video'));
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            };
+
+            const extractImageMetadata = (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            resolve({ width: img.width, height: img.height });
+                        };
+                        img.onerror = reject;
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            };
+
+            const validateFiles = async () => {
+                setValidating(true);
+                const newResults = [];
+
+                for (const file of files) {
+                    try {
+                        const fileName = file.name.toLowerCase();
+                        let metadata;
+                        let fileType;
+
+                        if (file.type.startsWith('video/') || fileName.match(/\.(mp4|mov)$/i)) {
+                            fileType = 'video';
+                            metadata = await extractVideoMetadata(file);
+                        } else if (file.type.startsWith('image/') || fileName.match(/\.jpg$/i)) {
+                            fileType = 'image';
+                            metadata = await extractImageMetadata(file);
+                        } else {
+                            throw new Error('Unsupported file type');
+                        }
+
+                        // Find matching supports
+                        const matchedSupports = soportesDB.filter(soporte => {
+                            return soporte.resoluciones.some(res => {
+                                const widthMatch = Math.abs(res.width - metadata.width) <= 5;
+                                const heightMatch = Math.abs(res.height - metadata.height) <= 5;
+                                return widthMatch && heightMatch;
+                            });
+                        });
+
+                        newResults.push({
+                            filename: file.name,
+                            type: fileType,
+                            metadata,
+                            matchedSupports: matchedSupports.map(s => s.nombre),
+                            dimensionsValid: matchedSupports.length > 0,
+                            fpsValid: fileType === 'video' ? (metadata.fps >= 23 && metadata.fps <= 26) : null,
+                            durationValid: fileType === 'video' ? (Math.abs(metadata.duration - 10) <= 0.5) : null,
+                            annotations: matchedSupports.map(s => s.anotaciones).filter(a => a)
+                        });
+                    } catch (error) {
+                        newResults.push({
+                            filename: file.name,
+                            error: error.message
+                        });
+                    }
+                }
+
+                setResults(newResults);
+                setValidating(false);
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-8">
+                    <div className="max-w-6xl mx-auto">
+                        {/* Back Button */}
+                        <button
+                            onClick={() => setCurrentView('landing')}
+                            className="mb-8 flex items-center space-x-2 text-gray-700 hover:primary-color transition"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span className="font-medium">Back to Home</span>
+                        </button>
+
+                        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div className="primary-gradient p-8 text-white">
+                                <div className="flex items-center space-x-3">
+                                    <Film className="w-10 h-10" />
+                                    <div>
+                                        <h1 className="text-3xl font-bold">Digital File Validator</h1>
+                                        <p className="text-pink-100 mt-1">Validate MP4, MOV, and JPG files</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-8 space-y-6">
+                                {/* File Upload */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-4">
+                                        Upload Files
+                                    </label>
+                                    <div className="relative">
+                                        <input
+                                            type="file"
+                                            multiple
+                                            onChange={handleFileChange}
+                                            accept=".mp4,.mov,.jpg,.jpeg"
+                                            className="hidden"
+                                            id="file-upload-digital"
+                                        />
+                                        <label
+                                            htmlFor="file-upload-digital"
+                                            className="flex items-center justify-center w-full px-4 py-8 border-3 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-pink-400 hover:bg-pink-50 transition-all"
+                                        >
+                                            <div className="text-center">
+                                                <Upload className="w-12 h-12 mx-auto text-gray-400 mb-3" />
+                                                <p className="text-sm font-medium text-gray-700">
+                                                    Click to upload or drag and drop
+                                                </p>
+                                                <p className="text-xs text-gray-500 mt-1">
+                                                    MP4, MOV, or JPG files
+                                                </p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Selected Files */}
+                                {files.length > 0 && (
+                                    <div>
+                                        <h3 className="font-semibold text-gray-700 mb-3">Selected Files ({files.length})</h3>
+                                        <div className="space-y-2">
+                                            {files.map((file, idx) => (
+                                                <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                                    <span className="text-sm text-gray-700">{file.name}</span>
+                                                    <button
+                                                        onClick={() => removeFile(idx)}
+                                                        className="text-red-500 hover:text-red-700 text-xs font-medium"
+                                                    >
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Validate Button */}
+                                <button
+                                    onClick={validateFiles}
+                                    disabled={files.length === 0 || validating}
+                                    className="w-full primary-bg text-white font-semibold py-4 px-6 rounded-lg hover:primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                                >
+                                    {validating ? 'Validating...' : 'Validate Files'}
+                                </button>
+                            </div>
+
+                            {/* Results */}
+                            {results.length > 0 && (
+                                <div className="p-8 bg-gray-50 border-t-2 border-gray-200">
+                                    <h3 className="text-lg font-bold text-gray-900 mb-4">Validation Results</h3>
+                                    <div className="space-y-4">
+                                        {results.map((result, idx) => (
+                                            <div key={idx} className="bg-white rounded-lg p-4 border-2 border-gray-200">
+                                                {result.error ? (
+                                                    <div className="flex items-start space-x-3">
+                                                        <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+                                                        <div>
+                                                            <p className="font-medium text-gray-900">{result.filename}</p>
+                                                            <p className="text-sm text-red-600">{result.error}</p>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="space-y-3">
+                                                        <div className="flex items-start justify-between">
+                                                            <div>
+                                                                <p className="font-medium text-gray-900">{result.filename}</p>
+                                                                <p className="text-sm text-gray-600">
+                                                                    {result.type === 'video'
+                                                                        ? `${result.metadata.width}x${result.metadata.height} • ${result.metadata.duration.toFixed(1)}s • ${result.metadata.fps} FPS`
+                                                                        : `${result.metadata.width}x${result.metadata.height}px`
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Table View */}
+                                                        <div className="overflow-x-auto">
+                                                            <table className="w-full text-xs">
+                                                                <thead>
+                                                                    <tr className="border-b border-gray-300">
+                                                                        <th className="text-left py-2 px-2 font-semibold">Matched Supports</th>
+                                                                        <th className="text-center py-2 px-2 font-semibold">Dimensions</th>
+                                                                        {result.type === 'video' && (
+                                                                            <>
+                                                                                <th className="text-center py-2 px-2 font-semibold">FPS</th>
+                                                                                <th className="text-center py-2 px-2 font-semibold">Duration</th>
+                                                                            </>
+                                                                        )}
+                                                                        <th className="text-left py-2 px-2 font-semibold">Notes</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr className="border-b border-gray-200">
+                                                                        <td className="py-2 px-2">
+                                                                            {result.matchedSupports.length > 0 ? (
+                                                                                <div className="text-gray-900">
+                                                                                    {result.matchedSupports.join(', ')}
+                                                                                </div>
+                                                                            ) : (
+                                                                                <span className="text-gray-500 italic">No matches found</span>
+                                                                            )}
+                                                                        </td>
+                                                                        <td className="text-center py-2 px-2">
+                                                                            {result.dimensionsValid ? (
+                                                                                <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                            ) : (
+                                                                                <XCircle className="w-5 h-5 text-red-500 mx-auto" />
+                                                                            )}
+                                                                        </td>
+                                                                        {result.type === 'video' && (
+                                                                            <>
+                                                                                <td className="text-center py-2 px-2">
+                                                                                    {result.fpsValid ? (
+                                                                                        <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                                    ) : result.dimensionsValid ? (
+                                                                                        <AlertTriangle className="w-5 h-5 text-yellow-500 mx-auto" />
+                                                                                    ) : (
+                                                                                        <XCircle className="w-5 h-5 text-red-500 mx-auto" />
+                                                                                    )}
+                                                                                </td>
+                                                                                <td className="text-center py-2 px-2">
+                                                                                    {result.durationValid ? (
+                                                                                        <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                                    ) : result.dimensionsValid ? (
+                                                                                        <AlertTriangle className="w-5 h-5 text-yellow-500 mx-auto" />
+                                                                                    ) : (
+                                                                                        <XCircle className="w-5 h-5 text-red-500 mx-auto" />
+                                                                                    )}
+                                                                                </td>
+                                                                            </>
+                                                                        )}
+                                                                        <td className="py-2 px-2">
+                                                                            {result.annotations.length > 0 && (
+                                                                                <div className="text-gray-700 text-xs">
+                                                                                    {result.annotations.join('; ')}
+                                                                                </div>
+                                                                            )}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const PrintValidator = ({ recursosDB, setCurrentView }) => {
             const [recursoCode, setRecursoCode] = useState('');
             const [selectedFile, setSelectedFile] = useState(null);
             const [validating, setValidating] = useState(false);
             const [results, setResults] = useState(null);
             const [searchResults, setSearchResults] = useState([]);
             const [showSearch, setShowSearch] = useState(false);
-            const [recursosDB, setRecursosDB] = useState({});
-            const [loading, setLoading] = useState(true);
-
-            // Load recursos database on mount
-            React.useEffect(() => {
-                fetch(RECURSOS_DB_URL)
-                    .then(response => response.json())
-                    .then(data => {
-                        setRecursosDB(data);
-                        setLoading(false);
-                    })
-                    .catch(error => {
-                        console.error('Error loading recursos database:', error);
-                        setLoading(false);
-                        alert('Error loading recursos database. Please refresh the page.');
-                    });
-            }, []);
 
             const handleFileChange = (e) => {
                 const file = e.target.files[0];
@@ -127,13 +531,12 @@
                 setSearchResults([]);
             };
 
-            const mmToPoints = (mm) => mm * 2.83465;
             const pointsToMm = (points) => points / 2.83465;
 
             const extractPDFInfo = async (file) => {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
-                    reader.onload = async (e) => {
+                    reader.onload = (e) => {
                         try {
                             const arrayBuffer = e.target.result;
                             const uint8Array = new Uint8Array(arrayBuffer);
@@ -175,12 +578,6 @@
                     reader.onload = (e) => {
                         const img = new Image();
                         img.onload = () => {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-
                             const isLikelyCMYK = file.size > 1000000;
                             let resolution = 150;
                             if (file.name.includes('300') || file.name.includes('high')) {
@@ -237,13 +634,10 @@
                     }
 
                     const tolerance = 2;
-
-                    // Check for scale from 1:1 to 1:10
                     let dimensionMatch = false;
                     let detectedScale = null;
                     let scaleRatio = 1;
 
-                    // Check each scale from 1:1 to 1:10
                     for (let scale = 1; scale <= 10; scale++) {
                         const scaledWidth = recurso.width / scale;
                         const scaledHeight = recurso.height / scale;
@@ -325,33 +719,31 @@
 
             const totalRecursos = Object.keys(recursosDB).length;
 
-            if (loading) {
-                return (
-                    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                        <div className="text-center">
-                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                            <p className="text-gray-700 font-medium">Loading recursos database...</p>
-                        </div>
-                    </div>
-                );
-            }
-
             return (
-                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+                <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 p-8">
                     <div className="max-w-4xl mx-auto">
+                        {/* Back Button */}
+                        <button
+                            onClick={() => setCurrentView('landing')}
+                            className="mb-8 flex items-center space-x-2 text-gray-700 hover:primary-color transition"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span className="font-medium">Back to Home</span>
+                        </button>
+
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white">
+                            <div className="primary-gradient p-8 text-white">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center space-x-3">
-                                        <FileText className="w-10 h-10" />
+                                        <Printer className="w-10 h-10" />
                                         <div>
-                                            <h1 className="text-3xl font-bold">File Validator</h1>
-                                            <p className="text-blue-100 mt-1">Validate trimbox, color mode & resolution</p>
+                                            <h1 className="text-3xl font-bold">Print File Validator</h1>
+                                            <p className="text-pink-100 mt-1">Validate trimbox, color mode & resolution</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
                                         <div className="text-2xl font-bold">{totalRecursos.toLocaleString()}</div>
-                                        <div className="text-sm text-blue-100">Recursos loaded</div>
+                                        <div className="text-sm text-pink-100">Recursos loaded</div>
                                     </div>
                                 </div>
                             </div>
@@ -368,9 +760,8 @@
                                             onChange={(e) => handleRecursoSearch(e.target.value)}
                                             onFocus={() => recursoCode.length >= 3 && searchResults.length > 0 && setShowSearch(true)}
                                             placeholder="e.g., R17-006705"
-                                            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                            className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:border-pink-500 focus:outline-none transition-colors"
                                         />
-                                        <Search className="absolute right-3 top-3.5 w-5 h-5 text-gray-400" />
                                     </div>
 
                                     {showSearch && searchResults.length > 0 && (
@@ -379,7 +770,7 @@
                                                 <button
                                                     key={code}
                                                     onClick={() => selectRecurso(code)}
-                                                    className="w-full px-4 py-3 text-left hover:bg-blue-50 border-b border-gray-100 last:border-b-0 transition-colors"
+                                                    className="w-full px-4 py-3 text-left hover:bg-pink-50 border-b border-gray-100 last:border-b-0 transition-colors"
                                                 >
                                                     <div className="font-medium text-gray-900">{code}</div>
                                                     <div className="text-sm text-gray-500">
@@ -405,11 +796,11 @@
                                             onChange={handleFileChange}
                                             accept=".pdf,.jpg,.jpeg,.tiff,.tif"
                                             className="hidden"
-                                            id="file-upload"
+                                            id="file-upload-print"
                                         />
                                         <label
-                                            htmlFor="file-upload"
-                                            className="flex items-center justify-center w-full px-4 py-8 border-3 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all"
+                                            htmlFor="file-upload-print"
+                                            className="flex items-center justify-center w-full px-4 py-8 border-3 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-pink-400 hover:bg-pink-50 transition-all"
                                         >
                                             <div className="text-center">
                                                 <Upload className="w-12 h-12 mx-auto text-gray-400 mb-3" />
@@ -427,7 +818,7 @@
                                 <button
                                     onClick={validateFile}
                                     disabled={!recursoCode || !selectedFile || validating}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                                    className="w-full primary-bg text-white font-semibold py-4 px-6 rounded-lg hover:primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                                 >
                                     {validating ? 'Validating...' : 'Validate File'}
                                 </button>
@@ -454,7 +845,7 @@
                                                     Recurso: {results.recurso.name} ({recursoCode})
                                                 </p>
                                                 {results.scale && results.validations.dimensions.valid && (
-                                                    <p className="text-sm text-blue-700 mt-1 font-medium">
+                                                    <p className="text-sm primary-color mt-1 font-medium">
                                                         Detected: {results.scale}
                                                     </p>
                                                 )}
@@ -472,15 +863,14 @@
                             )}
                         </div>
 
-                        <div className="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-                            <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+                        <div className="mt-6 primary-light-bg border-2 primary-color rounded-xl p-6">
+                            <h3 className="font-semibold primary-color mb-3 flex items-center">
                                 <AlertCircle className="w-5 h-5 mr-2" />
-                                Demo Information
+                                Print Validation Rules
                             </h3>
-                            <div className="text-sm text-blue-800 space-y-2">
-                                <p><strong>Database:</strong> {totalRecursos.toLocaleString()} recursos loaded from InventarioPapel_.csv</p>
-                                <p><strong>Note:</strong> This is a prototype with simulated file parsing for CMYK and resolution detection.</p>
-                                <p><strong>Validation Rules:</strong></p>
+                            <div className="text-sm text-gray-700 space-y-2">
+                                <p><strong>Database:</strong> {totalRecursos.toLocaleString()} recursos loaded</p>
+                                <p><strong>Validation Requirements:</strong></p>
                                 <ul className="list-disc list-inside ml-4 space-y-1">
                                     <li>Trimbox must match recurso dimensions (±2mm tolerance)</li>
                                     <li>Files can be at scale from 1:1 (full scale) to 1:10</li>
@@ -495,7 +885,7 @@
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<FileValidatorApp />);
+        root.render(<FileValidator />);
     </script>
 </body>
 </html>

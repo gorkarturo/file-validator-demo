@@ -1,0 +1,738 @@
+[
+  {
+    "nombre": "A LAXE",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 962,
+        "height": 1152
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Pontevedra",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ABC SERRANO 1",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 545,
+        "height": 384
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ABC SERRANO 2",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 544
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "AIRESUR",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 768
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Sevilla",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Arenas (metro)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1152,
+        "height": 576
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Arenas (perimetral)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 2304,
+        "height": 1792
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Arenas (Gran Via)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1456,
+        "height": 416
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ARENAS (SUELO)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1360,
+        "height": 1280
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "DIAGONAL MAR CUBO",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1536,
+        "height": 512
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "EL SALER - LED",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 800,
+        "height": 4590
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Valencia",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "EQUINOCCIO MADRID",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 768
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ISLAZUL",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1352,
+        "height": 780
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LA FINCA GRAND CAFÉ",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1170,
+        "height": 990
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LA FINCA GRAND CAFÉ",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 5120,
+        "height": 1620
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "L'ILLA 1p",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 768
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "L'ILLA 2p",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 896,
+        "height": 512
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "MORALEJA GREEN NORTE",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 768
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "PARQUE ALMENARA",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1280,
+        "height": 720
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "SAMBIL",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1260,
+        "height": 360
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "VIALIA MÁLAGA (ATRIO)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 7936,
+        "height": 512
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Málaga",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "VIALIA MÁLAGA (LOBBY)",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1920,
+        "height": 1408
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Málaga",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "VILAMARINA",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ZIELO DE POZUELO  LED",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1368,
+        "height": 216
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Hola BCN norte",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2592,
+        "height": 648
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Hola BCN sur",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2808,
+        "height": 648
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "cubos",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 3456,
+        "height": 1728
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "espada",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2880,
+        "height": 900
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Led bajada taxis",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 810,
+        "height": 630
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Entrecintas",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 3840,
+        "height": 2160
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Sky Center",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2880,
+        "height": 540
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Recogida de squipajes",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 900,
+        "height": 540
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Mupi Digital",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2160,
+        "height": 3840
+      },
+      {
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "terminal": "T1 - T2",
+    "ciudad": "Barcelona",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Tunes Digital",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 3888,
+        "height": 648
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Hola Madrid",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 4032,
+        "height": 792
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Fast track",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1350,
+        "height": 720
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Embarques",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1584,
+        "height": 504
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - bajada sala 10",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1620,
+        "height": 720
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Embarques",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1620,
+        "height": 900
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Acceso Embarques",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1680,
+        "height": 960
+      }
+    ],
+    "terminal": "T2",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Salidas facturación",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1680,
+        "height": 960
+      }
+    ],
+    "terminal": "T2",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Duty Free",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1890,
+        "height": 900
+      }
+    ],
+    "terminal": "T4S",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Duty Free",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 1980,
+        "height": 1080
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Entrecintas",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 3840,
+        "height": 2160
+      }
+    ],
+    "terminal": "T1",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Puente Aereo",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 990,
+        "height": 540
+      }
+    ],
+    "terminal": "T4",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "LED - Llegadas",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 990,
+        "height": 630
+      }
+    ],
+    "terminal": "T2",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Mupi Digital",
+    "entorno": "aeropuerto",
+    "resoluciones": [
+      {
+        "width": 2160,
+        "height": 3840
+      },
+      {
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "terminal": "T1 - T2 - T3 - T4 - T4s",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "Mupi Digital",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 1080,
+        "height": 1920
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Nacional",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "ARTURO SORIA",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 2912,
+        "height": 624
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Madrid",
+    "anotaciones": ""
+  },
+  {
+    "nombre": "DIAGONAL MAR - ANILLO SUPERIOR",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 7424,
+        "height": 448
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - ANILLO INFERIOR 01",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 2753,
+        "height": 384
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - ANILLO INFERIOR 02",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 4671,
+        "height": 384
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - ANILLO INFERIOR 03",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 7424,
+        "height": 384
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - UNA CARA",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 376,
+        "height": 1664
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - DOS CARAS",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 752,
+        "height": 1664
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE MONTAJE EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - PLAZA",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 7680,
+        "height": 4320
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE REVISION EN DISEÑO"
+  },
+  {
+    "nombre": "DIAGONAL MAR - FOODCOURT",
+    "entorno": "Centros Comerciales",
+    "resoluciones": [
+      {
+        "width": 7680,
+        "height": 4320
+      }
+    ],
+    "terminal": "",
+    "ciudad": "Barcelona",
+    "anotaciones": "REQUIERE REVISION EN DISEÑO"
+  }
+]
