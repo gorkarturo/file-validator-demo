@@ -17,8 +17,14 @@
         .primary-color { color: #e6007e; }
         .primary-bg { background-color: #e6007e; }
         .primary-hover:hover { background-color: #c0006b; }
-        .primary-gradient { background: linear-gradient(135deg, #e6007e 0%, #cc006f 100%); }
+        .primary-gradient { background: linear-gradient(135deg, #e6007e 0%, #041c2b 100%); }
         .primary-light-bg { background-color: #fce6f2; }
+        .secondary-color { color: #041c2b; }
+        .secondary-bg { background-color: #041c2b; }
+        .secondary-hover:hover { background-color: #051f33; }
+        .success-bg { background-color: #10b981; }
+        .warning-bg { background-color: #f59e0b; }
+        .error-bg { background-color: #ef4444; }
     </style>
 </head>
 <body>
@@ -29,65 +35,63 @@
 
         // SVG Icons
         const Upload = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="17 8 12 3 7 8"></polyline>
-                <line x1="12" y1="3" x2="12" y2="15"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" strokeWidth="2" fill="none"></path>
+                <path d="M7 10L12 5L17 10" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
+                <path d="M12 5V15" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round"></path>
             </svg>
         );
 
         const CheckCircle = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="11" fill="currentColor"></circle>
+                <path d="M9 12.5L11 14.5L15 10" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
         );
 
         const XCircle = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="15" y1="9" x2="9" y2="15"></line>
-                <line x1="9" y1="9" x2="15" y2="15"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="11" fill="currentColor"></circle>
+                <path d="M15 9L9 15M9 9L15 15" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
         );
 
         const AlertCircle = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="11" fill="currentColor"></circle>
+                <circle cx="12" cy="9" r="1" fill="white"></circle>
+                <line x1="12" y1="13" x2="12" y2="16" stroke="white" strokeWidth="2" strokeLinecap="round"></line>
             </svg>
         );
 
         const AlertTriangle = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3.05h16.94a2 2 0 0 0 1.71-3.05L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 20h20L12 2z" fill="currentColor"></path>
+                <circle cx="12" cy="9" r="1" fill="white"></circle>
+                <line x1="12" y1="13" x2="12" y2="16" stroke="white" strokeWidth="2" strokeLinecap="round"></line>
             </svg>
         );
 
         const ArrowLeft = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round"></path>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
         );
 
         const Film = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-                <line x1="16" y1="5" x2="16" y2="11"></line>
-                <line x1="8" y1="5" x2="8" y2="11"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2" ry="2" fill="currentColor"></rect>
+                <rect x="14" y="4" width="4" height="8" rx="1" fill="currentColor"></rect>
+                <rect x="6" y="4" width="4" height="8" rx="1" fill="currentColor"></rect>
             </svg>
         );
 
         const Printer = ({ className }) => (
-            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                <rect x="2" y="9" width="20" height="8"></rect>
-                <line x1="6" y1="17" x2="6" y2="21"></line>
-                <line x1="18" y1="17" x2="18" y2="21"></line>
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 9V3h12v6M2 9h20v8H2z" fill="currentColor"></path>
+                <rect x="5" y="17" width="3" height="4" rx="1" fill="currentColor"></rect>
+                <rect x="16" y="17" width="3" height="4" rx="1" fill="currentColor"></rect>
             </svg>
         );
 
@@ -141,8 +145,11 @@
             <div className="min-h-screen primary-gradient flex items-center justify-center p-4">
                 <div className="max-w-4xl w-full">
                     <div className="text-center mb-16">
+                        <div className="flex justify-center mb-6">
+                            <img src="logo.svg" alt="Exterior Plus Logo" className="h-12 w-auto" />
+                        </div>
                         <h1 className="text-5xl font-bold text-white mb-4">File Validator</h1>
-                        <p className="text-xl text-pink-100">Validate your digital and print files</p>
+                        <p className="text-xl text-white opacity-90">Validate your digital and print files</p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-8">
@@ -279,11 +286,15 @@
                             });
                         });
 
+                        const matchedSupportNames = matchedSupports.map(s => s.nombre);
+                        const matchedCities = [...new Set(matchedSupports.map(s => s.ciudad).filter(c => c))];
+
                         newResults.push({
                             filename: file.name,
                             type: fileType,
                             metadata,
-                            matchedSupports: matchedSupports.map(s => s.nombre),
+                            matchedSupports: matchedSupportNames,
+                            matchedCities: matchedCities,
                             dimensionsValid: matchedSupports.length > 0,
                             fpsValid: fileType === 'video' ? (metadata.fps >= 23 && metadata.fps <= 26) : null,
                             durationValid: fileType === 'video' ? (Math.abs(metadata.duration - 10) <= 0.5) : null,
@@ -315,11 +326,14 @@
 
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                             <div className="primary-gradient p-8 text-white">
+                                <div className="flex items-center space-x-4 mb-4">
+                                    <img src="logo.svg" alt="Exterior Plus Logo" className="h-12 w-auto" />
+                                </div>
                                 <div className="flex items-center space-x-3">
                                     <Film className="w-10 h-10" />
                                     <div>
                                         <h1 className="text-3xl font-bold">Digital File Validator</h1>
-                                        <p className="text-pink-100 mt-1">Validate MP4, MOV, and JPG files</p>
+                                        <p className="text-white opacity-90 mt-1">Validate MP4, MOV, and JPG files</p>
                                     </div>
                                 </div>
                             </div>
@@ -415,36 +429,65 @@
                                                             </div>
                                                         </div>
 
+                                                        {/* Enhanced Success Visualization */}
+                                                        {result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? (
+                                                            <div className="success-bg rounded-lg p-4 text-white">
+                                                                <div className="flex items-center space-x-3">
+                                                                    <CheckCircle className="w-8 h-8" />
+                                                                    <div>
+                                                                        <p className="font-bold text-lg">✓ VÁLIDO</p>
+                                                                        <p className="text-sm text-white opacity-90">All checks passed</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ) : null}
+
                                                         {/* Table View */}
                                                         <div className="overflow-x-auto">
                                                             <table className="w-full text-xs">
                                                                 <thead>
                                                                     <tr className="border-b border-gray-300">
-                                                                        <th className="text-left py-2 px-2 font-semibold">Matched Supports</th>
-                                                                        <th className="text-center py-2 px-2 font-semibold">Dimensions</th>
+                                                                        <th className="text-left py-2 px-2 font-semibold text-gray-700">Archivo</th>
+                                                                        <th className="text-left py-2 px-2 font-semibold text-gray-700">Soportes Válidos</th>
+                                                                        <th className="text-left py-2 px-2 font-semibold text-gray-700">Ciudad</th>
+                                                                        <th className="text-center py-2 px-2 font-semibold text-gray-700">Dimensiones</th>
                                                                         {result.type === 'video' && (
                                                                             <>
-                                                                                <th className="text-center py-2 px-2 font-semibold">FPS</th>
-                                                                                <th className="text-center py-2 px-2 font-semibold">Duration</th>
+                                                                                <th className="text-center py-2 px-2 font-semibold text-gray-700">FPS</th>
+                                                                                <th className="text-center py-2 px-2 font-semibold text-gray-700">Duración</th>
                                                                             </>
                                                                         )}
-                                                                        <th className="text-left py-2 px-2 font-semibold">Notes</th>
+                                                                        <th className="text-left py-2 px-2 font-semibold text-gray-700">Anotaciones</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr className="border-b border-gray-200">
+                                                                    <tr className={`border-b border-gray-200 ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'success-bg' : ''}`}>
+                                                                        <td className="py-2 px-2">
+                                                                            <span className={`text-gray-900 font-medium ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : ''}`}>
+                                                                                {result.filename}
+                                                                            </span>
+                                                                        </td>
                                                                         <td className="py-2 px-2">
                                                                             {result.matchedSupports.length > 0 ? (
-                                                                                <div className="text-gray-900">
+                                                                                <div className={result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-gray-900'}>
                                                                                     {result.matchedSupports.join(', ')}
                                                                                 </div>
                                                                             ) : (
                                                                                 <span className="text-gray-500 italic">No matches found</span>
                                                                             )}
                                                                         </td>
+                                                                        <td className="py-2 px-2">
+                                                                            {result.matchedCities.length > 0 ? (
+                                                                                <div className={result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-gray-900'}>
+                                                                                    {result.matchedCities.join(', ')}
+                                                                                </div>
+                                                                            ) : (
+                                                                                <span className="text-gray-500 italic">-</span>
+                                                                            )}
+                                                                        </td>
                                                                         <td className="text-center py-2 px-2">
                                                                             {result.dimensionsValid ? (
-                                                                                <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                                <CheckCircle className={`w-5 h-5 mx-auto ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-green-500'}`} />
                                                                             ) : (
                                                                                 <XCircle className="w-5 h-5 text-red-500 mx-auto" />
                                                                             )}
@@ -453,7 +496,7 @@
                                                                             <>
                                                                                 <td className="text-center py-2 px-2">
                                                                                     {result.fpsValid ? (
-                                                                                        <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                                        <CheckCircle className={`w-5 h-5 mx-auto ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-green-500'}`} />
                                                                                     ) : result.dimensionsValid ? (
                                                                                         <AlertTriangle className="w-5 h-5 text-yellow-500 mx-auto" />
                                                                                     ) : (
@@ -462,7 +505,7 @@
                                                                                 </td>
                                                                                 <td className="text-center py-2 px-2">
                                                                                     {result.durationValid ? (
-                                                                                        <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                                                                        <CheckCircle className={`w-5 h-5 mx-auto ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-green-500'}`} />
                                                                                     ) : result.dimensionsValid ? (
                                                                                         <AlertTriangle className="w-5 h-5 text-yellow-500 mx-auto" />
                                                                                     ) : (
@@ -473,7 +516,7 @@
                                                                         )}
                                                                         <td className="py-2 px-2">
                                                                             {result.annotations.length > 0 && (
-                                                                                <div className="text-gray-700 text-xs">
+                                                                                <div className={`text-xs ${result.type === 'video' && result.dimensionsValid && result.fpsValid && result.durationValid ? 'text-white' : 'text-gray-700'}`}>
                                                                                     {result.annotations.join('; ')}
                                                                                 </div>
                                                                             )}
@@ -734,16 +777,21 @@
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                             <div className="primary-gradient p-8 text-white">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-3">
-                                        <Printer className="w-10 h-10" />
-                                        <div>
-                                            <h1 className="text-3xl font-bold">Print File Validator</h1>
-                                            <p className="text-pink-100 mt-1">Validate trimbox, color mode & resolution</p>
+                                    <div>
+                                        <div className="mb-4">
+                                            <img src="logo.svg" alt="Exterior Plus Logo" className="h-12 w-auto" />
+                                        </div>
+                                        <div className="flex items-center space-x-3">
+                                            <Printer className="w-10 h-10" />
+                                            <div>
+                                                <h1 className="text-3xl font-bold">Print File Validator</h1>
+                                                <p className="text-white opacity-90 mt-1">Validate trimbox, color mode & resolution</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="text-right">
                                         <div className="text-2xl font-bold">{totalRecursos.toLocaleString()}</div>
-                                        <div className="text-sm text-pink-100">Recursos loaded</div>
+                                        <div className="text-sm text-white opacity-90">Recursos loaded</div>
                                     </div>
                                 </div>
                             </div>
