@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -352,6 +353,27 @@
 
                 setResults(newResults);
                 setValidating(false);
+
+                // Comunicar resultado a PowerApps
+                const todosValidos = newResults.length > 0 && newResults.every(r =>
+                    !r.error &&
+                    r.dimensionsValid &&
+                    (r.type !== 'video' || (r.fpsValid && r.durationValid))
+                );
+                const mensajeDigital = {
+                    tipo: 'validacionArte',
+                    modalidad: 'digital',
+                    valido: todosValidos,
+                    archivos: newResults.map(r => r.filename),
+                    detalles: newResults.map(r => ({
+                        archivo: r.filename,
+                        dimensiones: r.dimensionsValid,
+                        fps: r.fpsValid ?? null,
+                        duracion: r.durationValid ?? null,
+                        error: r.error ?? null
+                    }))
+                };
+                window.parent.postMessage(JSON.stringify(mensajeDigital), '*');
             };
 
             return (
@@ -783,6 +805,22 @@
                         },
                         overallValid: dimensionMatch && colorModeValid && resolutionValid
                     });
+
+                    // Comunicar resultado a PowerApps
+                    const mensaje = {
+                        tipo: 'validacionArte',
+                        modalidad: 'print',
+                        valido: dimensionMatch && colorModeValid && resolutionValid,
+                        recurso: recursoCode.toUpperCase(),
+                        archivo: selectedFile.name,
+                        detalles: {
+                            dimensiones: dimensionMatch,
+                            colorCMYK: colorModeValid,
+                            resolucion: resolutionValid
+                        }
+                    };
+                    window.parent.postMessage(JSON.stringify(mensaje), '*');
+
                 } catch (error) {
                     alert(`Error processing file: ${error.message}`);
                 } finally {
